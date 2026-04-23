@@ -12,20 +12,10 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import {
-  LayoutDashboard,
-  GraduationCap,
-  BookOpen,
-  Users,
-  UserCog,
-  HeartHandshake,
-  UserSquare2,
-  ClipboardCheck,
-  FlaskConical,
-  BarChart3,
-  Megaphone,
-  Settings,
-  ShieldCheck,
+  LayoutDashboard, GraduationCap, BookOpen, Users, UserCog, HeartHandshake,
+  UserSquare2, ClipboardCheck, FlaskConical, BarChart3, Megaphone, Settings, ShieldCheck,
 } from "lucide-react";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 
 const items = [
   { title: "Overview", url: "/", icon: LayoutDashboard, end: true },
@@ -49,15 +39,15 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border">
-      <SidebarHeader className="border-b border-sidebar-border">
-        <div className="flex items-center gap-2.5 px-2 py-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-gradient-gold text-primary shadow-gold">
-            <span className="text-lg font-bold">A</span>
+      <SidebarHeader className="border-b border-sidebar-border bg-sidebar">
+        <div className="flex items-center gap-2 px-1.5 py-2.5">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-white/10 backdrop-blur p-1">
+            <BrandLogo size={32} />
           </div>
           {!collapsed && (
             <div className="min-w-0">
-              <div className="truncate text-sm font-semibold text-sidebar-foreground">ABC Admin</div>
-              <div className="truncate text-[11px] text-sidebar-foreground/60">Africa Business College</div>
+              <div className="truncate text-sm font-bold text-sidebar-foreground">ABC Admin</div>
+              <div className="truncate text-[11px] text-sidebar-foreground/60">African Business College</div>
             </div>
           )}
         </div>
