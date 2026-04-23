@@ -3,27 +3,32 @@
 @tailwind utilities;
 
 /* ABC — Africa Business College Program Admin Design System
-   Deep Navy + Gold, light enterprise theme. All colors HSL.
+   Brand: Green primary + Deep Navy secondary + Gold accent. All colors HSL.
 */
 
 @layer base {
   :root {
-    --background: 210 25% 98%;
-    --foreground: 220 45% 12%;
+    --background: 150 20% 98%;
+    --foreground: 220 50% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 45% 12%;
+    --card-foreground: 220 50% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 45% 12%;
+    --popover-foreground: 220 50% 12%;
 
-    /* Deep Navy */
-    --primary: 220 65% 18%;
-    --primary-foreground: 45 90% 96%;
-    --primary-glow: 220 60% 28%;
+    /* Brand Green (primary) — from africabusinescollege.vercel.app */
+    --primary: 152 64% 38%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 152 70% 46%;
+
+    /* Deep Navy — institutional secondary */
+    --navy: 220 65% 18%;
+    --navy-foreground: 0 0% 100%;
+    --navy-glow: 220 60% 28%;
 
     --secondary: 220 25% 94%;
-    --secondary-foreground: 220 45% 18%;
+    --secondary-foreground: 220 50% 18%;
 
     --muted: 220 20% 96%;
     --muted-foreground: 220 15% 42%;
@@ -51,25 +56,28 @@
 
     --border: 220 20% 90%;
     --input: 220 20% 90%;
-    --ring: 220 65% 18%;
+    --ring: 152 64% 38%;
 
     --radius: 0.625rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(220 65% 18%), hsl(220 60% 28%));
+    --gradient-primary: linear-gradient(135deg, hsl(152 64% 32%), hsl(152 70% 44%));
+    --gradient-navy: linear-gradient(135deg, hsl(220 65% 14%), hsl(220 60% 24%));
     --gradient-gold: linear-gradient(135deg, hsl(43 78% 52%), hsl(38 92% 50%));
-    --gradient-surface: linear-gradient(180deg, hsl(0 0% 100%), hsl(220 25% 97%));
+    --gradient-surface: linear-gradient(180deg, hsl(0 0% 100%), hsl(150 25% 97%));
+    --gradient-hero: linear-gradient(135deg, hsl(152 64% 22%), hsl(220 65% 18%));
 
     /* Shadows */
     --shadow-sm: 0 1px 2px hsl(220 45% 12% / 0.04);
     --shadow-md: 0 4px 12px -2px hsl(220 45% 12% / 0.08);
     --shadow-lg: 0 10px 30px -8px hsl(220 45% 12% / 0.12);
     --shadow-gold: 0 8px 24px -8px hsl(43 78% 52% / 0.35);
+    --shadow-primary: 0 8px 24px -8px hsl(152 64% 38% / 0.45);
 
-    /* Sidebar */
+    /* Sidebar — deep navy with gold accents */
     --sidebar-background: 220 65% 14%;
     --sidebar-foreground: 220 20% 88%;
-    --sidebar-primary: 43 78% 52%;
+    --sidebar-primary: 152 64% 50%;
     --sidebar-primary-foreground: 220 65% 14%;
     --sidebar-accent: 220 55% 22%;
     --sidebar-accent-foreground: 0 0% 100%;
@@ -87,9 +95,12 @@
     --popover: 220 40% 12%;
     --popover-foreground: 220 20% 95%;
 
-    --primary: 43 78% 52%;
-    --primary-foreground: 220 65% 14%;
-    --primary-glow: 43 78% 60%;
+    --primary: 152 70% 46%;
+    --primary-foreground: 220 65% 8%;
+    --primary-glow: 152 70% 56%;
+
+    --navy: 220 35% 18%;
+    --navy-foreground: 0 0% 100%;
 
     --secondary: 220 35% 18%;
     --secondary-foreground: 220 20% 95%;
@@ -119,12 +130,12 @@
 
     --border: 220 35% 20%;
     --input: 220 35% 20%;
-    --ring: 43 78% 52%;
+    --ring: 152 70% 46%;
 
     --sidebar-background: 220 50% 10%;
     --sidebar-foreground: 220 20% 88%;
-    --sidebar-primary: 43 78% 52%;
-    --sidebar-primary-foreground: 220 65% 14%;
+    --sidebar-primary: 152 70% 50%;
+    --sidebar-primary-foreground: 220 65% 8%;
     --sidebar-accent: 220 40% 18%;
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 220 40% 18%;
@@ -142,7 +153,6 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  /* Numeric tabular for KPIs */
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
