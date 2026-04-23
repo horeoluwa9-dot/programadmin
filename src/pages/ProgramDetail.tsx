@@ -10,10 +10,14 @@ import { CurriculumBuilder } from "@/components/programs/CurriculumBuilder";
 import { Switch } from "@/components/ui/switch";
 import { ChevronLeft } from "lucide-react";
 import { StatusBadge } from "@/components/shared/Badges";
+import { useStore } from "@/store/useStore";
+import { toast } from "sonner";
 
 const ProgramDetail = () => {
   const { id } = useParams();
-  const program = programs.find((p) => p.id === id);
+  const storePrograms = useStore((s) => s.programs);
+  const toggleProgramStatus = useStore((s) => s.toggleProgramStatus);
+  const program = storePrograms.find((p) => p.id === id) || programs.find((p) => p.id === id);
   if (!program) return <div>Program not found</div>;
 
   const programCourses = courses.filter((c) => c.programId === program.id);
@@ -32,9 +36,12 @@ const ProgramDetail = () => {
             <div className="flex items-center gap-2 text-sm">
               <span className="text-muted-foreground">Status</span>
               <StatusBadge status={program.status} />
-              <Switch defaultChecked={program.status === "active"} />
+              <Switch
+                checked={program.status === "active"}
+                onCheckedChange={() => { toggleProgramStatus(program.id); toast.success(`Program ${program.status === "active" ? "deactivated" : "activated"}`); }}
+              />
             </div>
-            <Button size="sm" variant="outline">Edit program</Button>
+            <Button size="sm" variant="outline" onClick={() => toast.info("Edit program form opened")}>Edit program</Button>
           </>
         }
       />
@@ -99,7 +106,7 @@ const ProgramDetail = () => {
                       <div className="flex justify-between text-[10px] text-muted-foreground"><span>Workload</span><span>{f.workload}%</span></div>
                       <Progress value={f.workload} className="h-1" />
                     </div>
-                    <Button size="sm" variant="outline">Reassign</Button>
+                    <Button size="sm" variant="outline" onClick={() => toast.success(`Reassigning ${f.name}`)}>Reassign</Button>
                   </div>
                 </div>
               ))}

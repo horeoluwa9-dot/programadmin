@@ -10,6 +10,7 @@ import { RiskBadge } from "@/components/shared/Badges";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid } from "recharts";
+import { toast } from "sonner";
 
 const CohortDetail = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const CohortDetail = () => {
       <PageHeader
         title={cohort.name}
         subtitle={`${program?.title} · ${cohort.students} students · ${cohort.startDate} → ${cohort.endDate}`}
-        actions={<Button size="sm" variant="outline">Manage cohort</Button>}
+        actions={<Button size="sm" variant="outline" onClick={() => toast.success("Cohort settings opened")}>Manage cohort</Button>}
       />
       <Tabs defaultValue="members">
         <TabsList>
@@ -99,7 +100,7 @@ const CohortDetail = () => {
               {["Strategy Case", "Pitch Deck v1", "FX Hedging Quiz", "Final Project"].map((t, i) => (
                 <div key={t} className="flex items-center justify-between border-b border-border pb-2 last:border-0">
                   <div><p className="text-sm font-medium">{t}</p><p className="text-xs text-muted-foreground">Due in {3 + i} days · {60 + i * 5}/{cohort.students} submitted</p></div>
-                  <Button size="sm" variant="outline">Grade</Button>
+                  <Button size="sm" variant="outline" onClick={() => toast.success(`Opening grading for "${t}"`)}>Grade</Button>
                 </div>
               ))}
             </CardContent>
@@ -107,7 +108,7 @@ const CohortDetail = () => {
         </TabsContent>
 
         <TabsContent value="collab" className="mt-4 grid gap-4 md:grid-cols-2">
-          <Card className="shadow-elev-sm"><CardHeader><CardTitle className="text-base">Group projects</CardTitle></CardHeader><CardContent className="text-sm space-y-2">{["Team Alpha — Market entry","Team Beta — Digital pivot","Team Gamma — Sustainability"].map((t)=>(<div key={t} className="flex justify-between border-b border-border pb-2 last:border-0"><span>{t}</span><Button size="sm" variant="ghost">View</Button></div>))}</CardContent></Card>
+          <Card className="shadow-elev-sm"><CardHeader><CardTitle className="text-base">Group projects</CardTitle></CardHeader><CardContent className="text-sm space-y-2">{["Team Alpha — Market entry","Team Beta — Digital pivot","Team Gamma — Sustainability"].map((t)=>(<div key={t} className="flex justify-between border-b border-border pb-2 last:border-0"><span>{t}</span><Button size="sm" variant="ghost" onClick={() => toast.info(`Opening "${t}"`)}>View</Button></div>))}</CardContent></Card>
           <Card className="shadow-elev-sm"><CardHeader><CardTitle className="text-base">Discussion activity</CardTitle></CardHeader><CardContent><div className="kpi-number">182</div><p className="text-xs text-muted-foreground mt-1">posts this week · +24% vs last</p></CardContent></Card>
         </TabsContent>
       </Tabs>
