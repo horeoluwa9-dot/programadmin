@@ -2,8 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { aiInsights } from "@/data/mock";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
+import { useAIAssistant } from "@/components/ai/AIAssistantProvider";
 
 export function AIInsights() {
+  const { open } = useAIAssistant();
   return (
     <Card className="shadow-elev-sm overflow-hidden">
       <CardHeader className="pb-3 bg-gradient-primary text-primary-foreground">
@@ -17,7 +19,7 @@ export function AIInsights() {
           <div key={i.id} className="rounded-md border border-border bg-card p-3">
             <p className="text-sm font-medium">{i.title}</p>
             <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{i.description}</p>
-            <Button size="sm" variant="outline" className="mt-2.5 h-7 text-xs">
+            <Button size="sm" variant="outline" className="mt-2.5 h-7 text-xs" onClick={open}>
               {i.action}
             </Button>
           </div>

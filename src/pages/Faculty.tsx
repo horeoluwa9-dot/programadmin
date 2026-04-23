@@ -5,16 +5,25 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { faculty } from "@/data/mock";
 import { Plus, Star } from "lucide-react";
+import { useStore } from "@/store/useStore";
+import { NewFacultyDialog } from "@/components/forms/EntityDialogs";
+import { downloadCSV } from "@/lib/exporters";
+import { toast } from "sonner";
 
 const Faculty = () => {
+  const faculty = useStore((s) => s.faculty);
   return (
     <>
       <PageHeader
         title="Faculty Management"
         subtitle="Faculty directory, workload and assignments"
-        actions={<Button size="sm" className="bg-gradient-primary"><Plus className="h-4 w-4" /> Add faculty</Button>}
+        actions={
+          <>
+            <Button variant="outline" size="sm" onClick={() => downloadCSV("faculty.csv", faculty)}>Export CSV</Button>
+            <NewFacultyDialog trigger={<Button size="sm" className="bg-gradient-primary"><Plus className="h-4 w-4" /> Add faculty</Button>} />
+          </>
+        }
       />
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2 shadow-elev-sm">
@@ -29,6 +38,7 @@ const Faculty = () => {
                   <TableHead>Courses</TableHead>
                   <TableHead>Workload</TableHead>
                   <TableHead>Rating</TableHead>
+                  <TableHead></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -45,6 +55,7 @@ const Faculty = () => {
                     <TableCell className="tabular-nums text-sm">{f.courses}</TableCell>
                     <TableCell><div className="w-28"><Progress value={f.workload} className="h-1.5" /><span className="text-[10px] text-muted-foreground tabular-nums">{f.workload}%</span></div></TableCell>
                     <TableCell><div className="flex items-center gap-1 text-sm tabular-nums"><Star className="h-3 w-3 fill-accent text-accent" />{f.rating}</div></TableCell>
+                    <TableCell><Button size="sm" variant="ghost" onClick={() => toast.info(`Opening ${f.name}'s profile`)}>View</Button></TableCell>
                   </TableRow>
                 ))}
               </TableBody>

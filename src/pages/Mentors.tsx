@@ -5,16 +5,24 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { mentors } from "@/data/mock";
 import { Plus } from "lucide-react";
+import { useStore } from "@/store/useStore";
+import { InviteMentorDialog, AssignMentorDialog } from "@/components/forms/EntityDialogs";
+import { downloadCSV } from "@/lib/exporters";
 
 const Mentors = () => {
+  const mentors = useStore((s) => s.mentors);
   return (
     <>
       <PageHeader
         title="Mentors"
         subtitle="Industry mentors paired with cohorts and students"
-        actions={<Button size="sm" className="bg-gradient-primary"><Plus className="h-4 w-4" /> Invite mentor</Button>}
+        actions={
+          <>
+            <Button variant="outline" size="sm" onClick={() => downloadCSV("mentors.csv", mentors)}>Export CSV</Button>
+            <InviteMentorDialog trigger={<Button size="sm" className="bg-gradient-primary"><Plus className="h-4 w-4" /> Invite mentor</Button>} />
+          </>
+        }
       />
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2 shadow-elev-sm">
@@ -44,7 +52,9 @@ const Mentors = () => {
                     <TableCell className="tabular-nums">{m.cohorts}</TableCell>
                     <TableCell className="tabular-nums">{m.students}</TableCell>
                     <TableCell><div className="w-28"><Progress value={m.availability} className="h-1.5" /></div></TableCell>
-                    <TableCell><Button size="sm" variant="outline">Assign</Button></TableCell>
+                    <TableCell>
+                      <AssignMentorDialog mentorName={m.name} trigger={<Button size="sm" variant="outline">Assign</Button>} />
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -60,7 +70,7 @@ const Mentors = () => {
                 <p className="text-xs font-medium mb-1.5">{d}</p>
                 <div className="grid grid-cols-12 gap-0.5">
                   {Array.from({ length: 12 }).map((_, i) => {
-                    const v = Math.random();
+                    const v = ((d.charCodeAt(0) + i) % 10) / 10;
                     const cls = v > 0.7 ? "bg-success" : v > 0.4 ? "bg-success/50" : v > 0.2 ? "bg-muted" : "bg-destructive/30";
                     return <div key={i} className={`h-4 rounded-sm ${cls}`} />;
                   })}

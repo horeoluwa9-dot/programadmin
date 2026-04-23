@@ -2,18 +2,27 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Users, AlertTriangle } from "lucide-react";
-import { cohorts, programs } from "@/data/mock";
 import { Link } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { useStore } from "@/store/useStore";
+import { NewCohortDialog } from "@/components/forms/EntityDialogs";
+import { downloadCSV } from "@/lib/exporters";
 
 const Cohorts = () => {
+  const cohorts = useStore((s) => s.cohorts);
+  const programs = useStore((s) => s.programs);
   return (
     <>
       <PageHeader
         title="Cohorts"
         subtitle="Active learner cohorts across the institution"
-        actions={<Button size="sm" className="bg-gradient-primary"><Plus className="h-4 w-4" /> Create cohort</Button>}
+        actions={
+          <>
+            <Button variant="outline" size="sm" onClick={() => downloadCSV("cohorts.csv", cohorts)}>Export CSV</Button>
+            <NewCohortDialog trigger={<Button size="sm" className="bg-gradient-primary"><Plus className="h-4 w-4" /> Create cohort</Button>} />
+          </>
+        }
       />
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {cohorts.map((c) => {

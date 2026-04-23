@@ -7,10 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { courses } from "@/data/mock";
 import { ChevronLeft, BookOpen, Video, FileText, ClipboardCheck, FlaskConical, Sparkles, Eye, Plus } from "lucide-react";
+import { toast } from "sonner";
+import { useAIAssistant } from "@/components/ai/AIAssistantProvider";
 
 const CourseDetail = () => {
   const { id } = useParams();
   const course = courses.find((c) => c.id === id);
+  const { open: openAI } = useAIAssistant();
   if (!course) return <div>Course not found</div>;
 
   return (
@@ -23,8 +26,8 @@ const CourseDetail = () => {
         subtitle={`Faculty: ${course.faculty} · ${course.modules} modules`}
         actions={
           <>
-            <Button size="sm" variant="outline"><Eye className="h-4 w-4" /> Preview</Button>
-            <Button size="sm" className="bg-gradient-primary">Save course</Button>
+            <Button size="sm" variant="outline" onClick={() => toast.info("Preview opened")}><Eye className="h-4 w-4" /> Preview</Button>
+            <Button size="sm" className="bg-gradient-primary" onClick={() => toast.success("Course saved")}>Save course</Button>
           </>
         }
       />
@@ -34,7 +37,7 @@ const CourseDetail = () => {
         <Card className="lg:col-span-3 shadow-elev-sm">
           <CardHeader className="flex-row items-center justify-between space-y-0 pb-3">
             <CardTitle className="text-sm">Structure</CardTitle>
-            <Button size="sm" variant="ghost" className="h-7"><Plus className="h-3.5 w-3.5" /></Button>
+            <Button size="sm" variant="ghost" className="h-7" onClick={() => toast.success("New module added")}><Plus className="h-3.5 w-3.5" /></Button>
           </CardHeader>
           <CardContent className="text-sm space-y-1 pb-4">
             {Array.from({ length: course.modules }).map((_, i) => (
@@ -73,7 +76,7 @@ const CourseDetail = () => {
               <Video className="mx-auto h-8 w-8 text-muted-foreground" />
               <p className="mt-2 text-sm font-medium">Upload video lecture</p>
               <p className="text-xs text-muted-foreground">MP4 up to 2GB · or paste a URL</p>
-              <Button size="sm" variant="outline" className="mt-3">Choose file</Button>
+              <Button size="sm" variant="outline" className="mt-3" onClick={() => toast.info("File picker opened")}>Choose file</Button>
             </div>
             <div>
               <label className="text-xs font-medium text-muted-foreground">Lesson content</label>
@@ -99,10 +102,10 @@ const CourseDetail = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 pt-4">
-            <Button size="sm" variant="outline" className="w-full justify-start"><Sparkles className="h-3.5 w-3.5" /> Generate quiz</Button>
-            <Button size="sm" variant="outline" className="w-full justify-start"><Sparkles className="h-3.5 w-3.5" /> Suggest readings</Button>
-            <Button size="sm" variant="outline" className="w-full justify-start"><Sparkles className="h-3.5 w-3.5" /> Create assignment</Button>
-            <Button size="sm" variant="outline" className="w-full justify-start"><Sparkles className="h-3.5 w-3.5" /> Improve clarity</Button>
+            <Button size="sm" variant="outline" className="w-full justify-start" onClick={openAI}><Sparkles className="h-3.5 w-3.5" /> Generate quiz</Button>
+            <Button size="sm" variant="outline" className="w-full justify-start" onClick={openAI}><Sparkles className="h-3.5 w-3.5" /> Suggest readings</Button>
+            <Button size="sm" variant="outline" className="w-full justify-start" onClick={openAI}><Sparkles className="h-3.5 w-3.5" /> Create assignment</Button>
+            <Button size="sm" variant="outline" className="w-full justify-start" onClick={openAI}><Sparkles className="h-3.5 w-3.5" /> Improve clarity</Button>
             <div className="mt-3 rounded-md bg-accent-soft p-3 text-xs">
               <p className="font-medium text-accent-foreground">Tip</p>
               <p className="mt-0.5 text-muted-foreground">Use the chat assistant in the top bar to discuss curriculum strategy with the AI.</p>

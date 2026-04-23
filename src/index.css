@@ -74,14 +74,14 @@
     --shadow-gold: 0 8px 24px -8px hsl(43 78% 52% / 0.35);
     --shadow-primary: 0 8px 24px -8px hsl(152 64% 38% / 0.45);
 
-    /* Sidebar — deep navy with gold accents */
-    --sidebar-background: 220 65% 14%;
-    --sidebar-foreground: 220 20% 88%;
-    --sidebar-primary: 152 64% 50%;
-    --sidebar-primary-foreground: 220 65% 14%;
-    --sidebar-accent: 220 55% 22%;
+    /* Sidebar — deep brand green with gold accents (matches africabusinescollege.vercel.app) */
+    --sidebar-background: 152 70% 14%;
+    --sidebar-foreground: 150 30% 90%;
+    --sidebar-primary: 43 85% 58%;
+    --sidebar-primary-foreground: 152 70% 12%;
+    --sidebar-accent: 152 60% 22%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 220 50% 22%;
+    --sidebar-border: 152 55% 22%;
     --sidebar-ring: 43 78% 52%;
   }
 
@@ -132,13 +132,13 @@
     --input: 220 35% 20%;
     --ring: 152 70% 46%;
 
-    --sidebar-background: 220 50% 10%;
-    --sidebar-foreground: 220 20% 88%;
-    --sidebar-primary: 152 70% 50%;
-    --sidebar-primary-foreground: 220 65% 8%;
-    --sidebar-accent: 220 40% 18%;
+    --sidebar-background: 152 70% 10%;
+    --sidebar-foreground: 150 25% 90%;
+    --sidebar-primary: 43 85% 58%;
+    --sidebar-primary-foreground: 152 70% 10%;
+    --sidebar-accent: 152 55% 18%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 220 40% 18%;
+    --sidebar-border: 152 50% 18%;
     --sidebar-ring: 43 78% 52%;
   }
 }

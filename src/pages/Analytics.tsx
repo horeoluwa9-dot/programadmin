@@ -8,10 +8,12 @@ import { enrollmentTrend, completionTrend, programs } from "@/data/mock";
 import { aiInsights } from "@/data/mock";
 import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { useAIAssistant } from "@/components/ai/AIAssistantProvider";
 
 const programPerf = programs.filter((p)=>p.status==="active").map((p) => ({ name: p.title.split(" ")[0], completion: p.completion, enrolled: p.enrolled }));
 
 const Analytics = () => {
+  const { open: openAI } = useAIAssistant();
   const exportToast = (kind: string) => toast.success(`${kind} export queued`, { description: "We'll notify you when it's ready." });
 
   return (
@@ -44,7 +46,7 @@ const Analytics = () => {
           <CardTitle className="text-base flex items-center gap-2 text-primary-foreground"><Sparkles className="h-4 w-4 text-accent" /> AI Risk Analysis Engine</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3 pt-4 md:grid-cols-3">
-          {aiInsights.map((i)=>(<div key={i.id} className="rounded-md border border-border bg-card p-3"><p className="text-sm font-medium">{i.title}</p><p className="mt-1 text-xs text-muted-foreground leading-relaxed">{i.description}</p><Button size="sm" variant="outline" className="mt-2.5 h-7 text-xs">{i.action}</Button></div>))}
+          {aiInsights.map((i)=>(<div key={i.id} className="rounded-md border border-border bg-card p-3"><p className="text-sm font-medium">{i.title}</p><p className="mt-1 text-xs text-muted-foreground leading-relaxed">{i.description}</p><Button size="sm" variant="outline" className="mt-2.5 h-7 text-xs" onClick={openAI}>{i.action}</Button></div>))}
         </CardContent>
       </Card>
     </>

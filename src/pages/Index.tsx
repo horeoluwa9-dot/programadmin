@@ -1,39 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { KpiCard } from "@/components/dashboard/KpiCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  GraduationCap,
-  Users,
-  UserCog,
-  FlaskConical,
-  TrendingUp,
-  AlertTriangle,
-  Plus,
-  Megaphone,
-  FileBarChart,
-  UserPlus,
+  GraduationCap, Users, UserCog, FlaskConical, TrendingUp, AlertTriangle, Plus, Megaphone, FileBarChart, UserPlus,
 } from "lucide-react";
 import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
+  Area, AreaChart, Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from "recharts";
 import { kpis, enrollmentTrend, completionTrend, facultyWorkload } from "@/data/mock";
 import { EngagementHeatmap } from "@/components/dashboard/EngagementHeatmap";
 import { SystemAlerts } from "@/components/dashboard/SystemAlerts";
 import { AIInsights } from "@/components/dashboard/AIInsights";
 import { ActivityFeed } from "@/components/dashboard/ActivityFeed";
+import { NewProgramDialog, NewCohortDialog, NewSimulationDialog, InviteMentorDialog } from "@/components/forms/EntityDialogs";
+import { toast } from "sonner";
 
 const Index = () => {
+  const navigate = useNavigate();
+  const generateReport = () => toast.success("Report generation queued", { description: "We'll email you the PDF when ready." });
+
   return (
     <>
       <PageHeader
@@ -41,17 +28,20 @@ const Index = () => {
         subtitle="Africa Business College — institutional overview"
         actions={
           <>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={generateReport}>
               <FileBarChart className="h-4 w-4" /> Generate report
             </Button>
-            <Button size="sm" className="bg-gradient-primary">
-              <Plus className="h-4 w-4" /> New program
-            </Button>
+            <NewProgramDialog
+              trigger={
+                <Button size="sm" className="bg-gradient-primary">
+                  <Plus className="h-4 w-4" /> New program
+                </Button>
+              }
+            />
           </>
         }
       />
 
-      {/* KPI grid */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         <KpiCard label="Active Programs" value={kpis.activePrograms} delta={{ value: 1, suffix: "" }} icon={GraduationCap} accent="primary" />
         <KpiCard label="Enrolled Students" value={kpis.enrolledStudents.toLocaleString()} delta={{ value: 5.2 }} icon={Users} accent="info" />
@@ -61,12 +51,9 @@ const Index = () => {
         <KpiCard label="At-Risk Students" value={kpis.atRiskStudents} delta={{ value: -3 }} icon={AlertTriangle} accent="destructive" />
       </div>
 
-      {/* Charts row */}
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2 shadow-elev-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Enrollment growth</CardTitle>
-          </CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-base">Enrollment growth</CardTitle></CardHeader>
           <CardContent className="pl-0">
             <ResponsiveContainer width="100%" height={240}>
               <AreaChart data={enrollmentTrend} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
@@ -79,9 +66,7 @@ const Index = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
                 <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
                 <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} tickLine={false} axisLine={false} />
-                <Tooltip
-                  contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }}
-                />
+                <Tooltip contentStyle={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 12 }} />
                 <Area type="monotone" dataKey="students" stroke="hsl(var(--accent))" strokeWidth={2.5} fill="url(#enroll)" />
               </AreaChart>
             </ResponsiveContainer>
@@ -89,9 +74,7 @@ const Index = () => {
         </Card>
 
         <Card className="shadow-elev-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Completion trend</CardTitle>
-          </CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-base">Completion trend</CardTitle></CardHeader>
           <CardContent className="pl-0">
             <ResponsiveContainer width="100%" height={240}>
               <LineChart data={completionTrend} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
@@ -106,20 +89,13 @@ const Index = () => {
         </Card>
       </div>
 
-      {/* Heatmap + Faculty workload */}
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <Card className="shadow-elev-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">Engagement heatmap</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <EngagementHeatmap />
-          </CardContent>
+          <CardHeader className="pb-3"><CardTitle className="text-base">Engagement heatmap</CardTitle></CardHeader>
+          <CardContent><EngagementHeatmap /></CardContent>
         </Card>
         <Card className="shadow-elev-sm">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">Faculty workload distribution</CardTitle>
-          </CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-base">Faculty workload distribution</CardTitle></CardHeader>
           <CardContent className="pl-0">
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={facultyWorkload} margin={{ top: 8, right: 16, left: 8, bottom: 0 }}>
@@ -134,26 +110,22 @@ const Index = () => {
         </Card>
       </div>
 
-      {/* Quick actions + alerts + AI + activity */}
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <Card className="shadow-elev-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-base">Quick actions</CardTitle>
-          </CardHeader>
+          <CardHeader className="pb-3"><CardTitle className="text-base">Quick actions</CardTitle></CardHeader>
           <CardContent className="grid grid-cols-2 gap-2">
-            {[
-              { label: "New Program", icon: GraduationCap },
-              { label: "Create Cohort", icon: Users },
-              { label: "Assign Faculty", icon: UserPlus },
-              { label: "Launch Simulation", icon: FlaskConical },
-              { label: "Send Announcement", icon: Megaphone },
-              { label: "Generate Report", icon: FileBarChart },
-            ].map((a) => (
-              <Button key={a.label} variant="outline" className="h-auto flex-col gap-1.5 py-3">
-                <a.icon className="h-4 w-4" />
-                <span className="text-xs">{a.label}</span>
-              </Button>
-            ))}
+            <NewProgramDialog trigger={<QuickAction icon={GraduationCap} label="New Program" />} />
+            <NewCohortDialog trigger={<QuickAction icon={Users} label="Create Cohort" />} />
+            <Button variant="outline" className="h-auto flex-col gap-1.5 py-3" onClick={() => navigate("/faculty")}>
+              <UserPlus className="h-4 w-4" /><span className="text-xs">Assign Faculty</span>
+            </Button>
+            <NewSimulationDialog trigger={<QuickAction icon={FlaskConical} label="Launch Simulation" />} />
+            <Button variant="outline" className="h-auto flex-col gap-1.5 py-3" onClick={() => navigate("/announcements")}>
+              <Megaphone className="h-4 w-4" /><span className="text-xs">Send Announcement</span>
+            </Button>
+            <Button variant="outline" className="h-auto flex-col gap-1.5 py-3" onClick={() => navigate("/analytics")}>
+              <FileBarChart className="h-4 w-4" /><span className="text-xs">Generate Report</span>
+            </Button>
           </CardContent>
         </Card>
         <SystemAlerts />
@@ -163,8 +135,17 @@ const Index = () => {
       <div className="mt-4">
         <ActivityFeed />
       </div>
+      {/* Hidden helper to keep mentor dialog import used in case extending later */}
+      <InviteMentorDialog trigger={<span className="hidden" />} />
     </>
   );
 };
+
+const QuickAction = ({ icon: Icon, label }: { icon: any; label: string }) => (
+  <Button variant="outline" className="h-auto flex-col gap-1.5 py-3">
+    <Icon className="h-4 w-4" />
+    <span className="text-xs">{label}</span>
+  </Button>
+);
 
 export default Index;
