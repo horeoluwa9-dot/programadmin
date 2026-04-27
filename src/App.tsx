@@ -21,6 +21,16 @@ import Analytics from "./pages/Analytics";
 import Announcements from "./pages/Announcements";
 import Settings from "./pages/Settings";
 import Permissions from "./pages/Permissions";
+import Notifications from "./pages/Notifications";
+import Messages from "./pages/Messages";
+import Profile from "./pages/Profile";
+import ProgramAdminProfile from "./pages/ProgramAdminProfile";
+import AlertDetail from "./pages/AlertDetail";
+import FacultyDetail from "./pages/FacultyDetail";
+import CohortAnalytics from "./pages/CohortAnalytics";
+import ProgramAssignments from "./pages/ProgramAssignments";
+import SimulationDetail from "./pages/SimulationDetail";
+import ProgramEdit from "./pages/ProgramEdit";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -36,20 +46,30 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/programs/:id" element={<ProgramDetail />} />
+            <Route path="/programs/:id/edit" element={<ProgramEdit />} />
+            <Route path="/programs/:id/assignments" element={<ProgramAssignments />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:id" element={<CourseDetail />} />
             <Route path="/cohorts" element={<Cohorts />} />
             <Route path="/cohorts/:id" element={<CohortDetail />} />
+            <Route path="/cohorts/:id/analytics" element={<CohortAnalytics />} />
             <Route path="/faculty" element={<Faculty />} />
+            <Route path="/faculty/:id" element={<FacultyDetail />} />
             <Route path="/mentors" element={<Mentors />} />
             <Route path="/students" element={<Students />} />
             <Route path="/students/:id" element={<StudentDetail />} />
             <Route path="/assessments" element={<Assessments />} />
             <Route path="/simulations" element={<Simulations />} />
+            <Route path="/simulations/:id" element={<SimulationDetail />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/permissions" element={<Permissions />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/program-admins/:id" element={<ProgramAdminProfile />} />
+            <Route path="/alerts/:id" element={<AlertDetail />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

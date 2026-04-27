@@ -9,10 +9,12 @@ import { Plus, Star } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { NewFacultyDialog } from "@/components/forms/EntityDialogs";
 import { downloadCSV } from "@/lib/exporters";
-import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const Faculty = () => {
   const faculty = useStore((s) => s.faculty);
+  const navigate = useNavigate();
+  const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return (
     <>
       <PageHeader
@@ -55,7 +57,7 @@ const Faculty = () => {
                     <TableCell className="tabular-nums text-sm">{f.courses}</TableCell>
                     <TableCell><div className="w-28"><Progress value={f.workload} className="h-1.5" /><span className="text-[10px] text-muted-foreground tabular-nums">{f.workload}%</span></div></TableCell>
                     <TableCell><div className="flex items-center gap-1 text-sm tabular-nums"><Star className="h-3 w-3 fill-accent text-accent" />{f.rating}</div></TableCell>
-                    <TableCell><Button size="sm" variant="ghost" onClick={() => toast.info(`Opening ${f.name}'s profile`)}>View</Button></TableCell>
+                    <TableCell><Button size="sm" variant="ghost" onClick={() => navigate(`/faculty/${slug(f.name)}`)}>View</Button></TableCell>
                   </TableRow>
                 ))}
               </TableBody>
