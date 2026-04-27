@@ -9,7 +9,6 @@ import { Plus, Star } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { NewFacultyDialog } from "@/components/forms/EntityDialogs";
 import { downloadCSV } from "@/lib/exporters";
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 const Faculty = () => {
