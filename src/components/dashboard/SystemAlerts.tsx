@@ -12,6 +12,9 @@ const map = {
 
 export function SystemAlerts() {
   const navigate = useNavigate();
+  const go = (alert: (typeof systemAlerts)[number]) => {
+    navigate(alert.route || `/alerts/${alert.id}`);
+  };
   return (
     <Card className="shadow-elev-sm">
       <CardHeader className="pb-3">
@@ -24,7 +27,7 @@ export function SystemAlerts() {
           return (
             <button
               key={a.id}
-              onClick={() => navigate("/notifications")}
+              onClick={() => go(a)}
               className="flex w-full gap-3 rounded-md border border-border bg-card px-3 py-2.5 text-left transition hover:border-accent hover:bg-accent-soft"
             >
               <div className={cn("flex h-7 w-7 shrink-0 items-center justify-center rounded-md", M.cls)}>
