@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,6 +15,7 @@ import { toast } from "sonner";
 
 const ProgramDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const storePrograms = useStore((s) => s.programs);
   const toggleProgramStatus = useStore((s) => s.toggleProgramStatus);
   const program = storePrograms.find((p) => p.id === id) || programs.find((p) => p.id === id);
@@ -41,7 +42,7 @@ const ProgramDetail = () => {
                 onCheckedChange={() => { toggleProgramStatus(program.id); toast.success(`Program ${program.status === "active" ? "deactivated" : "activated"}`); }}
               />
             </div>
-            <Button size="sm" variant="outline" onClick={() => toast.info("Edit program form opened")}>Edit program</Button>
+            <Button size="sm" variant="outline" onClick={() => navigate(`/programs/${program.id}/edit`)}>Edit program</Button>
           </>
         }
       />
