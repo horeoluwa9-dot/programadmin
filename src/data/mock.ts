@@ -328,11 +328,26 @@ export const activityFeed = [
   { id: 6, type: "announcement", text: "Faculty Town Hall scheduled for March 8", time: "5 hr ago" },
 ];
 
-export const systemAlerts = [
-  { id: 1, severity: "high" as const, title: "Accra '25 Cohort A — engagement drop", description: "Engagement down 32% over 4 days. Consider mentor outreach." },
-  { id: 2, severity: "medium" as const, title: "Ms. Zanele Dlamini overloaded", description: "Workload at 88% — reassign 1 course." },
-  { id: 3, severity: "medium" as const, title: "12 missing assignments in Customer Discovery", description: "Dakar '25 Cohort A — past 48hrs." },
-  { id: 4, severity: "low" as const, title: "Simulation 'M&A Negotiation' starts in 2 days", description: "62 students enrolled." },
+export type SystemAlert = {
+  id: string;
+  type: "engagement" | "workload" | "academic" | "simulation";
+  title: string;
+  description: string;
+  severity: "low" | "medium" | "high" | "critical";
+  entityType: "cohort" | "faculty" | "program" | "simulation";
+  entityId: string;
+  actionType: "navigate" | "modal" | "filteredView";
+  route?: string;
+  modalReference?: string;
+  timestamp: string;
+  recommendedAction: string;
+};
+
+export const systemAlerts: SystemAlert[] = [
+  { id: "alert-engagement-accra", type: "engagement", severity: "high", title: "Accra '25 Cohort A — engagement drop", description: "Engagement down 32% over 4 days. Consider mentor outreach.", entityType: "cohort", entityId: "accra-25-cohort-a", actionType: "navigate", route: "/cohorts/accra-25-cohort-a/analytics", timestamp: "2025-03-18 09:14", recommendedAction: "Assign a mentor and send targeted intervention messages to low-activity students." },
+  { id: "alert-workload-zanele", type: "workload", severity: "medium", title: "Ms. Zanele Dlamini overloaded", description: "Workload at 88% — reassign 1 course.", entityType: "faculty", entityId: "zanele-dlamini", actionType: "navigate", route: "/faculty/zanele-dlamini", modalReference: "ReassignCourseModal", timestamp: "2025-03-18 08:42", recommendedAction: "Move one active course to a faculty member below 70% capacity." },
+  { id: "alert-assignments-customer-discovery", type: "academic", severity: "medium", title: "12 missing assignments in Customer Discovery", description: "Dakar '25 Cohort A — past 48hrs.", entityType: "program", entityId: "customer-discovery", actionType: "filteredView", route: "/programs/customer-discovery/assignments?status=missing", timestamp: "2025-03-18 07:55", recommendedAction: "Bulk notify students and alert the cohort mentor." },
+  { id: "alert-simulation-ma", type: "simulation", severity: "low", title: "Simulation 'M&A Negotiation' starts in 2 days", description: "62 students enrolled.", entityType: "simulation", entityId: "ma-negotiation", actionType: "navigate", route: "/simulations/ma-negotiation", timestamp: "2025-03-18 06:30", recommendedAction: "Review launch settings and notify participants." },
 ];
 
 export const aiInsights = [
