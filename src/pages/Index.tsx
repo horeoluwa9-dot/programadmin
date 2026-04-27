@@ -126,6 +126,9 @@ const Index = () => {
             <Button variant="outline" className="h-auto flex-col gap-1.5 py-3" onClick={() => navigate("/analytics")}>
               <FileBarChart className="h-4 w-4" /><span className="text-xs">Generate Report</span>
             </Button>
+            <Button variant="outline" className="h-auto flex-col gap-1.5 py-3" onClick={() => navigate("/program-admins/adaeze-nwosu")}>
+              <UserCog className="h-4 w-4" /><span className="text-xs">Admin Profile</span>
+            </Button>
           </CardContent>
         </Card>
         <SystemAlerts />
